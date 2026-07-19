@@ -2,15 +2,411 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>9kv8xiyi.jp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="9kv8xiyi.jp は、個人制作のWebゲーム・パズル・学習アプリを公開しているサイトです。ブラウザですぐに遊べます。">
+  <title>9kv8xiyi.jp | Web Games & Apps</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --surface: #121a2e;
+      --surface-2: #18233d;
+      --text: #f4f7fb;
+      --muted: #aeb9cf;
+      --accent: #79a7ff;
+      --accent-2: #a9c7ff;
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 18px 50px rgba(0,0,0,.25);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(121,167,255,.13), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(11,16,32,.78);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 88px 0 46px;
+    }
+
+    .eyebrow {
+      color: var(--accent-2);
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .8rem;
+    }
+
+    h1 {
+      margin: 10px 0 18px;
+      font-size: clamp(2.2rem, 7vw, 4.6rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2.4vw, 1.16rem);
+    }
+
+    .section {
+      padding: 32px 0 68px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1.6rem;
+    }
+
+    .section-note {
+      margin: 0 0 24px;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      min-height: 285px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--surface), var(--surface-2));
+      box-shadow: var(--shadow);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(121,167,255,.12);
+      font-size: 1.5rem;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 10px;
+      color: var(--muted);
+      font-size: .78rem;
+      white-space: nowrap;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+    }
+
+    .card p {
+      margin: 0 0 22px;
+      color: var(--muted);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      margin-top: auto;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #07101f;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(18,26,46,.76);
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    .panel p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .plain-list {
+      margin: 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      padding: 28px 0 38px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:focus-visible {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 760px) {
+      .hero { padding-top: 62px; }
+      .grid, .about { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; padding: 15px 0; }
+      .nav-links { justify-content: flex-end; gap: 10px 14px; }
+      .card { min-height: 0; }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(100% - 22px, 1100px); }
+      .nav-links a:first-child { display: none; }
+      .hero { padding-top: 48px; }
+      h1 { font-size: 2.35rem; }
+      .section { padding-bottom: 50px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>9kv8xiyi.jp</h1>
-  <ul>
-    <li><a href="/cat-queens/">Cat Queens</a></li>
-    <li><a href="/sudoku/">sudoku</a></li>
-    <li><a href="/quiz-drill/quiz-app.html">quiz-drill</a></li>
-    <li><a href="/boss-rush/">boss-rush</a></li>
-  </ul>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="/">9kv8xiyi.jp</a>
+      <nav class="nav-links" aria-label="メインナビゲーション">
+        <a href="#apps">Games & Apps</a>
+        <a href="#about">このサイトについて</a>
+        <a href="/privacy.html">プライバシー</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Web Games & Apps</div>
+        <h1>遊ぶ。考える。<br>ブラウザですぐに。</h1>
+        <p class="lead">
+          9kv8xiyi.jp は、個人で制作したWebゲーム・パズル・学習アプリを公開しているサイトです。
+          インストール不要で、PCやスマートフォンのブラウザから気軽に楽しめます。
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="apps">
+      <div class="container">
+        <h2 class="section-title">Games & Apps</h2>
+        <p class="section-note">公開中のコンテンツです。</p>
+
+        <div class="grid">
+          <article class="card">
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">🐈</div>
+              <span class="tag">Puzzle</span>
+            </div>
+            <h2>ねこかくれんぼパズル</h2>
+            <p>
+              行・列・色エリアのヒントを使って、隠れているねこの場所を推理するロジックパズル。
+              全150ステージに挑戦できます。
+            </p>
+            <a class="button" href="/cat-queens/">プレイする</a>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">🔢</div>
+              <span class="tag">Sudoku</span>
+            </div>
+            <h2>ナンプレ道場</h2>
+            <p>
+              かんたんから鬼レベルまで選べるナンプレアプリ。
+              メモ・ライフ・ヒント機能を使いながら、自分のペースで挑戦できます。
+            </p>
+            <a class="button" href="/sudoku/">プレイする</a>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">📝</div>
+              <span class="tag">Learning</span>
+            </div>
+            <h2>Quiz Drill</h2>
+            <p>
+              単一選択・複数選択に対応した試験形式のクイズ・ドリルアプリ。
+              フラグ、見直し、分野別スコアなどの機能を備えています。
+            </p>
+            <a class="button" href="/quiz-drill/quiz-app.html">挑戦する</a>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">⚔️</div>
+              <span class="tag">3D Action</span>
+            </div>
+            <h2>HALL OF KINGS — BOSS RUSH</h2>
+            <p>
+              強敵との連戦に挑む3Dボスラッシュアクション。
+              攻撃・回避・ガード・パリィを使い分けて王たちを打ち倒そう。
+            </p>
+            <a class="button" href="/boss-rush/">プレイする</a>
+          </article>
+
+          <article class="card">
+            <div class="card-top">
+              <div class="icon" aria-hidden="true">🏓</div>
+              <span class="tag">3D Sports</span>
+            </div>
+            <h2>3D卓球部</h2>
+            <p>
+              ブラウザで楽しめる3D卓球ゲーム。
+              ラケットを操作して、3D空間で卓球のラリーや対戦を楽しめます。
+            </p>
+            <a class="button" href="/table-tennis-3d/">プレイする</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about">
+        <div class="panel">
+          <h2>このサイトについて</h2>
+          <p>
+            小さなアイデアを実際に動くWebアプリとして公開しています。
+            ゲーム、パズル、学習ツールなど、ブラウザだけで利用できるコンテンツを随時追加・改善しています。
+            一部のページでは、サイト運営のため広告を掲載する場合があります。
+          </p>
+        </div>
+
+        <div class="panel">
+          <h2>運営情報</h2>
+          <ul class="plain-list">
+            <li>サイト名：9kv8xiyi.jp</li>
+            <li>内容：Webゲーム・Webアプリの公開</li>
+            <li><a href="https://github.com/EitaroSeta" rel="noopener noreferrer">GitHub / EitaroSeta</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© 2026 9kv8xiyi.jp</div>
+      <div class="footer-links">
+        <a href="/privacy.html">プライバシーポリシー</a>
+        <a href="https://github.com/EitaroSeta" rel="noopener noreferrer">お問い合わせ・GitHub</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
+
